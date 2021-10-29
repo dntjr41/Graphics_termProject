@@ -29,7 +29,7 @@ window.onload=function init() {
 
     }
   });
-  window.addEventListener("keyup", e => {
+  window.addEventListener("keyup", e => { // 키보드에서 뗏을 때, 
     const key = document.getElementById(e.key);
     if (key) console.log(e);
   });
@@ -40,40 +40,40 @@ window.onload=function init() {
   renderer.setSize(window.innerWidth,window.innerHeight);
   document.body.appendChild(renderer.domElement);
   const controls=new THREE.OrbitControls(camera, renderer.domElement);
-  let materialArray = [];
-  let texture_ft = new THREE.TextureLoader().load( 'background/quirk_ft.jpg');
-  let texture_bk = new THREE.TextureLoader().load( 'background/quirk_bk.jpg');
-  let texture_up = new THREE.TextureLoader().load( 'background/quirk_up.jpg');
-  let texture_dn = new THREE.TextureLoader().load( 'background/quirk_dn.jpg');
-  let texture_rt = new THREE.TextureLoader().load( 'background/quirk_rt.jpg');
-  let texture_lf = new THREE.TextureLoader().load( 'background/quirk_lf.jpg');
-    
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
-  materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
-
-  for (let i = 0; i < 6; i++)
-     materialArray[i].side = THREE.BackSide;
-  let skyboxGeo = new THREE.BoxGeometry( 10000, 10000, 10000);
-  let skybox = new THREE.Mesh( skyboxGeo, materialArray );
-  scene.add( skybox ); 
-  gltfLoader();
+  const loader=new THREE.CubeTextureLoader();
+  const texture=loader.load([
+    'background/quirk_ft.jpg',
+    'background/quirk_bk.jpg',
+    'background/quirk_up.jpg',
+    'background/quirk_dn.jpg',
+    'background/quirk_rt.jpg',
+    'background/quirk_lf.jpg'
+  ]);
+  scene.background=texture;
+  hlight = new THREE.AmbientLight (0x333333,50);
+	scene.add(hlight);
+	light = new THREE.DirectionalLight(0xc4c4c4,10);
+	light.position.set(0,3000,5000);
+	scene.add(light);
+	light2 = new THREE.PointLight(0xc4c4c4,10);
+	light2.position.set(5000,1000,0);
+	scene.add(light2);
+  light3 = new THREE.PointLight(0xc4c4c4,10);
+	light3.position.set(0,1000,-5000);
+	scene.add(light3);
+  const loader2 = new THREE.GLTFLoader();
+	loader2.load('./model/scene.gltf', function(gltf){
+	girl = gltf.scene.children[0];
+	girl.scale.set(50,50,50);
+	scene.add(gltf.scene);
   animate();
-  function gltfLoader()
-  { 
-    const loader = new THREE.GLTFLoader();
-	  loader.load('./model/scene.gltf', function(gltf){
-	  girl = gltf.scene.children[0];
-	  girl.scale.set(0.5,0.5,0.5);
-	  scene.add(gltf.scene);
-	  }, undefined, function (error) {
+	}, undefined, function (error) {
 		  console.error(error);
-	  });
-  }
-function animate() {
+	});
+function animate(time) {
+  time*=0.001;
+	girl.rotation.z=time;
+  girl.translate.y=-10;
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
