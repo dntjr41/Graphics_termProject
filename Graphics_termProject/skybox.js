@@ -133,7 +133,7 @@ transparent:true,});
 	}, undefined, function (error) {
 		  console.error(error);
 	});
-  
+
   // player
   const player_loader=new THREE.GLTFLoader();
   player_loader.load('./squid_game__pinksoldier/scene.gltf',function(gltf){
@@ -149,6 +149,90 @@ transparent:true,});
   }, undefined,function(error){
     console.error(error);
   });
+
+    ////////////////////// 오징어 (장애물) /////////////////////////////////
+  //
+  // bigSquid
+  const bigSquid=new THREE.GLTFLoader();
+  bigSquid.load('./squid_game_bigSquid/scene.gltf',function(gltf){
+    squid=gltf.scene.children[0];
+    squid.scale.set(0.5,0.5,0.5);
+    squid.rotation.z=1000;
+    squid.position.x=-1000;
+    squid.position.y=-100;
+    squid.position.z=-1000;
+    
+    scene.add(gltf.scene);
+    //animate();
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // bigSquid2
+  const bigSquid2=new THREE.GLTFLoader();
+  bigSquid2.load('./squid_game_bigSquid/scene.gltf',function(gltf){
+    squid=gltf.scene.children[0];
+    squid.scale.set(0.5,0.5,0.5);
+    squid.rotation.z=2000;
+    squid.position.x=-1000;
+    squid.position.y=-500;
+    squid.position.z=-1000;
+    
+    scene.add(gltf.scene);
+    //animate();
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // bigSquid3
+  const bigSquid3=new THREE.GLTFLoader();
+  bigSquid3.load('./squid_game_bigSquid/scene.gltf',function(gltf){
+      squid=gltf.scene.children[0];
+      squid.scale.set(0.5,0.5,0.5);
+      squid.rotation.z=4000;
+      squid.position.x=-1000;
+      squid.position.y=-1000;
+      squid.position.z=-1000;
+      
+      scene.add(gltf.scene);
+      //animate();
+  }, undefined,function(error){
+      console.error(error);
+  });
+
+  ////////////////////// 오징어 (장애물) /////////////////////////////////
+
+  // moveSquid
+  const moveSquid=new THREE.GLTFLoader();
+  moveSquid.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
+      mvsquid=gltf.scene.children[0];
+      mvsquid.scale.set(50, 50, 50);
+      mvsquid.position.x=-300;
+      mvsquid.position.y=-300;
+      mvsquid.position.z=-1000;
+      
+      scene.add(gltf.scene);
+      animate_squid();
+  }, undefined,function(error){
+      console.error(error);
+  });
+
+  // moveSquid2
+  const moveSquid2=new THREE.GLTFLoader();
+  moveSquid2.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
+        mvsquid2=gltf.scene.children[0];
+        mvsquid2.scale.set(50, 50, 50);
+        mvsquid2.position.x=-600;
+        mvsquid2.position.y=-600;
+        mvsquid2.position.z=-1000;
+        
+        scene.add(gltf.scene);
+        animate_squid2();
+    }, undefined,function(error){
+        console.error(error);
+    });
+
+  ////////////////////// 움직이는 오징어 //////////////////////////////////
 
   // 무궁화 꽃이 피었습니다. floating 3d text
   let fontLoader=new THREE.FontLoader();
@@ -174,8 +258,6 @@ transparent:true,});
     scene.add(mesh);
     
   });
-
-
 
   // animation
 function animate(time) {
@@ -221,3 +303,22 @@ function move_back(add)
 }
 }
 
+// animation Squid
+function animate_squid(time) {
+  time*=0.1;
+
+  mvsquid.position.z=time;
+  mvsquid.position.x=time;
+  renderer.render(scene,camera);
+  requestAnimationFrame(animate_squid);
+}
+
+// animation Squid
+function animate_squid2(time) {
+  time*=-0.1;
+
+  mvsquid2.position.z=time;
+  mvsquid2.position.x=time;
+  renderer.render(scene,camera);
+  requestAnimationFrame(animate_squid2);
+}
