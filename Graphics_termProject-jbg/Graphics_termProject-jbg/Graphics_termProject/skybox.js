@@ -124,10 +124,11 @@ transparent:true,});
   const loader2 = new THREE.GLTFLoader();
 	loader2.load('./model/scene.gltf', function(gltf){
 	girl = gltf.scene.children[0];
-	girl.scale.set(3000,3000,3000);
-  girl.position.x=-1000;
-  girl.position.y=-3000;
-  girl.position.z=27000;
+	girl.scale.set(100,100,100);
+  girl.position.x=-10;
+  girl.position.y=500;
+  girl.position.z=1000;
+  girl.rotation.z=0;
 	scene.add(gltf.scene);
   animate();
 	}, undefined, function (error) {
@@ -261,18 +262,45 @@ transparent:true,});
 
    //giving delay for look back
 function delay(ms){
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((r) => setTimeout((r), ms));
 }  
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
   // animation
-function animate(time) {
-  girl.rotation.z=0;
-  delay((Math.random() * 1000) + 1000)
+function animate() {
+  
+  
+  sleep(Math.random()*4000 + 5000)
   .then(() => girl.rotation.z=84.75)
-  .then(() => delay((Math.random() * 750) + 750)
-  .then(() => girl.rotation.z=0));
-  girl.translate.y=-10;
-  renderer.render(scene,camera);
-  requestAnimationFrame(animate);
+  .then(() => sleep(Math.random()*3000 + 5000))
+  .then(() => girl.rotation.z=0)
+  .then(() => girl.translate.y=-10)
+  .then(() => renderer.render(scene,camera))
+  .then(() => requestAnimationFrame(animate));
+
+  //setTimeout(function(){
+  // girl.rotation.z=84.75;
+  //},Math.random()*1000+3000);
+  
+  
+  //setTimeout(function(){
+  //  console.log("rotate");
+  //},Math.random()*1000);
+
+  //setTimeout(function(){
+  //  girl.rotation.z=0;
+  //},Math.random()*500+1500);
+
+  
+  //delay((Math.random() * 1000) + 1000)
+  //.then(() => girl.rotation.z=0)
+  //.then(() => delay((Math.random() * 1000) + 200));
+  //girl.translate.y=-10;
+  //renderer.render(scene,camera);
+  //requestAnimationFrame(animate);
 }
 
 function move_left(add)
