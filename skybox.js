@@ -40,7 +40,7 @@ window.onload=function init() {
   camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,100,30000);
   //camera=new THREE.PerspectiveCamera(100,2,0.5,100);
   //camera.position.set(900,-2000,-900);
-  camera.position.set(0,-100,-1700);
+  camera.position.set(0,-100,-2300);
   console.log(camera.position);
   // camera.position.set(0,0,-100);
   renderer = new THREE.WebGLRenderer({canvas});
@@ -76,7 +76,17 @@ transparent:true,});
    
   ];
 
-
+var groundTexture = new THREE.TextureLoader().load( "floor.jpg" );
+groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+groundTexture.repeat.set( 10000, 10000 );
+groundTexture.anisotropy = 16;
+groundTexture.encoding = THREE.sRGBEncoding;
+  var groundMaterial=new THREE.MeshStandardMaterial({map:groundTexture});
+  var mesh=new THREE.Mesh(new THREE.PlaneBufferGeometry(10000,10000),groundMaterial);
+  mesh.position.y = -1000;
+			mesh.rotation.x = - Math.PI / 2;
+			mesh.receiveShadow = true;
+			scene.add( mesh );
   // background
   const loader=new THREE.CubeTextureLoader();
   const texture=loader.load([
@@ -90,9 +100,9 @@ transparent:true,});
   scene.background=texture;
   hlight = new THREE.AmbientLight (0x333333,50);
 	scene.add(hlight);
-	light = new THREE.DirectionalLight(0xc4c4c4,10);
-	light.position.set(0,3000,5000);
-	scene.add(light);
+	// light = new THREE.DirectionalLight(0xc4c4c4,10);
+	// light.position.set(0,3000,5000);
+	// scene.add(light);
 
   function render(time) {
     // time *= 0.001;
@@ -112,9 +122,9 @@ transparent:true,});
 
   requestAnimationFrame(render);
   
-	// light2 = new THREE.PointLight(0xc4c4c4,10);
-	// light2.position.set(5000,1000,0);
-	// scene.add(light2);
+	light2 = new THREE.PointLight(0xc4c4c4,10);
+	light2.position.set(5000,1000,0);
+	scene.add(light2);
   // light3 = new THREE.PointLight(0xc4c4c4,10);
 	// light3.position.set(0,1000,-5000);
 	// scene.add(light3);
@@ -140,7 +150,7 @@ transparent:true,});
     player=gltf.scene.children[0];
     player.scale.set(1,1,1);
     player.position.x=3;
-    player.position.y=-400;
+    player.position.y=-700;
     
     player.position.z=-1000;
     
@@ -200,7 +210,7 @@ function move_right(add)
   // player.rotation.z+=add; // change player's direction
   player.position.x-=add;
 
-  //camera.position.x-=add;
+  camera.position.x-=add;
 
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
