@@ -2,8 +2,10 @@ let scene, camera, renderer;
 window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
   const renderer = new THREE.WebGLRenderer({canvas});
+  
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
+
 
   
     const fov = 75;
