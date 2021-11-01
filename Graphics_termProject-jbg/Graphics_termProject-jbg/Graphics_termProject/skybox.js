@@ -259,14 +259,22 @@ transparent:true,});
     
   });
 
+   //giving delay for look back
+function delay(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
+}  
   // animation
 function animate(time) {
-  time*=0.001;
-	girl.rotation.z=time;
+  girl.rotation.z=0;
+  delay((Math.random() * 1000) + 1000)
+  .then(() => girl.rotation.z=84.75)
+  .then(() => delay((Math.random() * 750) + 750)
+  .then(() => girl.rotation.z=0));
   girl.translate.y=-10;
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
+
 function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
