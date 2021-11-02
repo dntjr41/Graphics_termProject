@@ -3,7 +3,7 @@ window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-  
+
   let add=100;
   // 키보드 동작 함수
   window.addEventListener("keydown", e => {
@@ -130,6 +130,19 @@ transparent:true,});
 	// scene.add(light3);
    // make cube
   
+  //finish line
+  const line_loader = new THREE.GLTFLoader();
+	line_loader.load('./squid_game_finish_line/scene.gltf', function(gltf){
+	line = gltf.scene.children[0];
+	line.scale.set(3.9,3,2.5);
+  line.position.x=0;
+  line.position.y=-1225;
+  line.position.z=4500;
+	scene.add(gltf.scene);
+	}, undefined, function (error) {
+		  console.error(error);
+	});
+
   // girl
   const loader2 = new THREE.GLTFLoader();
 	loader2.load('./model/scene.gltf', function(gltf){
@@ -148,8 +161,8 @@ transparent:true,});
   // player
   const player_loader=new THREE.GLTFLoader();
   player_loader.load('./squid_game__pinksoldier/scene.gltf',function(gltf){
-    player=gltf.scene.children[0];
-    player.scale.set(1,1,1);
+  player=gltf.scene.children[0];
+  player.scale.set(1,1,1);
     player.position.x=3;
     player.position.y=-1000;
     
@@ -269,20 +282,22 @@ transparent:true,});
     scene.add(mesh);
     
   });
+
 function sleep(ms) {
     return new Promise((r) => setTimeout(r, ms));
 }
   
-  // animation
-function animate(time) {
-  sleep(Math.random()*3000 + 4000)
+  // girl animation
+function animate() {
+  sleep(Math.random()*4000 + 4000)
   .then(() => girl.rotation.z=84.75)
   .then(() => sleep(Math.random()*2000 + 4000))
   .then(() => girl.rotation.z=0)
-  //.then(() => girl.translate.y=-10)
+  .then(() => girl.translate.y=-10)
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
 }
+
 function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
@@ -293,6 +308,7 @@ function move_left(add)
   renderer.render(scene,camera);
   requestAnimationFrame(animate); 
 }
+
 function move_right(add)
 {
   // player.rotation.z+=add; // change player's direction
@@ -303,6 +319,7 @@ function move_right(add)
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
+
 function move(add)
 {
   player.position.z+=add;
@@ -310,6 +327,7 @@ function move(add)
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
+
 function move_back(add)
 {
   player.position.z-=add;
