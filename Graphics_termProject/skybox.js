@@ -3,9 +3,8 @@ window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
+  
   let add=100;
-
   // 키보드 동작 함수
   window.addEventListener("keydown", e => {
     const key=e.key;
@@ -272,17 +271,17 @@ function move_left(add)
   // player.rotation.z-=add; // change player's direction
   player.position.x+=add;
 
-  camera.position.x+=add;
+  camera.position.x+=add/5;
 
   renderer.render(scene,camera);
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animate); 
 }
 function move_right(add)
 {
   // player.rotation.z+=add; // change player's direction
   player.position.x-=add;
 
-  //camera.position.x-=add;
+  camera.position.x-=add/5;
 
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
@@ -290,14 +289,14 @@ function move_right(add)
 function move(add)
 {
   player.position.z+=add;
-  camera.position.z+=add;
+  camera.position.z+=add/5;
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
 function move_back(add)
 {
   player.position.z-=add;
-  camera.position.z-=add;
+  camera.position.z-=add/5;
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
 }
