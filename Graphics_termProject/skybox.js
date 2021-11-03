@@ -86,7 +86,6 @@ transparent:true,});
   mesh.receiveShadow = true;
   scene.add( mesh );
 
-
   // background
   const loader=new THREE.CubeTextureLoader();
   const texture=loader.load([
@@ -97,39 +96,25 @@ transparent:true,});
     'background/quirk_rt.jpg',
     'background/quirk_lf.jpg'
   ]);
+
+  // Using the 5 light sources
+  // 광원 조절해주기
   scene.background=texture;
-  hlight = new THREE.AmbientLight (0x333333,50);
+	hlight = new THREE.AmbientLight (0x404040,1);
 	scene.add(hlight);
-	// light = new THREE.DirectionalLight(0xc4c4c4,10);
-	// light.position.set(0,3000,5000);
-	// scene.add(light);
-
-  function render(time) {
-    // time *= 0.001;
-
-    
-    // cubes.forEach((cube, ndx) => {
-    //   const speed = 1 + ndx * .1;
-    //   const rot = time * speed;
-    //   cube.rotation.x = rot;
-    //   cube.rotation.y = rot;
-    // });
-
-    renderer.render(scene, camera);
-
-    requestAnimationFrame(render);
-  }
-
-  requestAnimationFrame(render);
-  
-	light2 = new THREE.PointLight(0xc4c4c4,10);
+	light = new THREE.PointLight(0xc4c4c4,1);
+	light.position.set(0,3000,5000);
+	scene.add(light);
+  light2 = new THREE.PointLight(0xc4c4c4,1);
 	light2.position.set(5000,1000,0);
 	scene.add(light2);
-  // light3 = new THREE.PointLight(0xc4c4c4,10);
-	// light3.position.set(0,1000,-5000);
-	// scene.add(light3);
-   // make cube
-  
+	light3 = new THREE.PointLight(0xc4c4c4,1);
+	light3.position.set(0,1000,-5000);
+	scene.add(light3);
+	light4 = new THREE.PointLight(0xc4c4c4,1);
+	light4.position.set(-5000,3000,5000);
+	scene.add(light4);
+
   //finish line
   const line_loader = new THREE.GLTFLoader();
 	line_loader.load('./squid_game_finish_line/scene.gltf', function(gltf){
@@ -147,10 +132,10 @@ transparent:true,});
   const loader2 = new THREE.GLTFLoader();
 	loader2.load('./model/scene.gltf', function(gltf){
 	girl = gltf.scene.children[0];
-	girl.scale.set(3000,3000,3000);
-  girl.position.x=-1000;
+	girl.scale.set(1000,1000,1000);
+  girl.position.x=-100;
   girl.position.y=-1000;
-  girl.position.z=27000;
+  girl.position.z=5000;
   girl.rotation.z=0;
 	scene.add(gltf.scene);
   animate();
@@ -158,15 +143,16 @@ transparent:true,});
 		  console.error(error);
 	});
 
+  // 팔다리가 움직이게 할 수 있음 좋겠음
   // player
   const player_loader=new THREE.GLTFLoader();
-  player_loader.load('./squid_game__pinksoldier/scene.gltf',function(gltf){
+  player_loader.load('./squid_game_player/scene.gltf',function(gltf){
   player=gltf.scene.children[0];
-  player.scale.set(1,1,1);
+  player.scale.set(200,200,200);
     player.position.x=3;
     player.position.y=-1000;
     
-    player.position.z=-200;
+    player.position.z=-4800;
     
     scene.add(gltf.scene);
     //animate();
@@ -174,17 +160,155 @@ transparent:true,});
     console.error(error);
   });
 
-    ////////////////////// 오징어 (장애물) /////////////////////////////////
-  //
+  /////////////////////////////////////////////////////////////////////
+  // Architecture
+  // House 1
+  const house1=new THREE.GLTFLoader();
+  house1.load('./architecture/house1/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(0.75, 0.75, 0.75);
+    house.rotation.z=1000;
+    house.position.x=-4000;
+    house.position.y=-1000;
+    house.position.z=-3500;
+    
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // House 2
+  const house2=new THREE.GLTFLoader();
+  house2.load('./architecture/house2/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(1.2, 1.2, 1.2);
+    house.rotation.z=3000;
+    house.position.x=-4000;
+    house.position.y=-1000;
+    house.position.z=-1000;
+
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // House 3
+  const house3=new THREE.GLTFLoader();
+  house3.load('./architecture/house3/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(5, 5, 5);
+    house.rotation.z=-8050;
+    house.position.x=4000;
+    house.position.y=-1000;
+    house.position.z=-3000;
+      
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // Car1
+  const car1=new THREE.GLTFLoader();
+  car1.load('./architecture/car1/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(2, 2, 2);
+    house.rotation.z=-300;
+    house.position.x= 3000;
+    house.position.y=-1000;
+    house.position.z=-1500;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // Car2
+  const car2=new THREE.GLTFLoader();
+  car2.load('./architecture/car2/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(2, 2, 2);
+    house.rotation.z=-1000;
+    house.position.x=-3500;
+    house.position.y=-1000;
+    house.position.z=-2500;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // water
+  const water=new THREE.GLTFLoader();
+  water.load('./architecture/water/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(50, 50, 50);
+    house.rotation.z=-1000;
+    house.position.x=-4000;
+    house.position.y=-600;
+    house.position.z=2500;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  // garage
+  const garage=new THREE.GLTFLoader();
+  garage.load('./architecture/garage/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(0.15, 0.15, 0.15);
+    house.rotation.z=-500;
+    house.position.x=4000;
+    house.position.y=-1000;
+    house.position.z=2000;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });  
+
+  // StorageTank
+  const storage=new THREE.GLTFLoader();
+  storage.load('./architecture/storagetank/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(60, 60, 60);
+    house.rotation.z=-7000;
+    house.position.x=-3500;
+    house.position.y=-1000;
+    house.position.z=1400;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });  
+
+  // container
+  const container=new THREE.GLTFLoader();
+  container.load('./architecture/container/scene.gltf',function(gltf){
+    house=gltf.scene.children[0];
+    house.scale.set(1000, 1000, 1000);
+    house.rotation.z=-2000;
+    house.position.x=3500;
+    house.position.y=-600;
+    house.position.z=00;
+          
+    scene.add(gltf.scene);
+  }, undefined,function(error){
+    console.error(error);
+  });
+
+  /////////////////////////////////////////////////////////////////////
+
+  ////////////////////// 오징어 (장애물) /////////////////////////////////
   // bigSquid
   const bigSquid=new THREE.GLTFLoader();
   bigSquid.load('./squid_game_bigSquid/scene.gltf',function(gltf){
     squid=gltf.scene.children[0];
-    squid.scale.set(0.5,0.5,0.5);
-    squid.rotation.z=1000;
+    squid.scale.set(1.6,1.6,1.6);
+    squid.rotation.z=500;
     squid.position.x=-1000;
-    squid.position.y=-1000;
-    squid.position.z=1000;
+    squid.position.y=-800;
+    squid.position.z=500;
     
     scene.add(gltf.scene);
     //animate();
@@ -196,11 +320,11 @@ transparent:true,});
   const bigSquid2=new THREE.GLTFLoader();
   bigSquid2.load('./squid_game_bigSquid/scene.gltf',function(gltf){
     squid=gltf.scene.children[0];
-    squid.scale.set(0.5,0.5,0.5);
-    squid.rotation.z=2000;
-    squid.position.x=3000;
-    squid.position.y=-1000;
-    squid.position.z=4000;
+    squid.scale.set(1.6, 1.6, 1.6);
+    squid.rotation.z=3000;
+    squid.position.x=1000;
+    squid.position.y=-800;
+    squid.position.z=-2000;
     
     scene.add(gltf.scene);
     //animate();
@@ -208,32 +332,31 @@ transparent:true,});
     console.error(error);
   });
 
-  // bigSquid3
-  const bigSquid3=new THREE.GLTFLoader();
-  bigSquid3.load('./squid_game_bigSquid/scene.gltf',function(gltf){
-      squid=gltf.scene.children[0];
-      squid.scale.set(0.5,0.5,0.5);
-      squid.rotation.z=-4000;
-      squid.position.x=-1000;
-      squid.position.y=-1000;
-      squid.position.z=200;
-      
-      scene.add(gltf.scene);
-      //animate();
+  // Octopus
+  const octopus=new THREE.GLTFLoader();
+  octopus.load('./squid_game_octopus/scene.gltf',function(gltf){
+    squid=gltf.scene.children[0];
+    squid.scale.set(700,700,700);
+    squid.rotation.z=1000;
+    squid.position.x=1500;
+    squid.position.y=-200;
+    squid.position.z=2000;
+    
+    scene.add(gltf.scene);
+    //animate();
   }, undefined,function(error){
-      console.error(error);
+    console.error(error);
   });
-
   ////////////////////// 오징어 (장애물) /////////////////////////////////
 
   // moveSquid
   const moveSquid=new THREE.GLTFLoader();
   moveSquid.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
       mvsquid=gltf.scene.children[0];
-      mvsquid.scale.set(50, 50, 50);
+      mvsquid.scale.set(150, 150, 150);
       mvsquid.position.x=-300;
-      mvsquid.position.y=-1000;
-      mvsquid.position.z=15000;
+      mvsquid.position.y=-800;
+      mvsquid.position.z=-1000;
       
       scene.add(gltf.scene);
       animate_squid();
@@ -245,10 +368,10 @@ transparent:true,});
   const moveSquid2=new THREE.GLTFLoader();
   moveSquid2.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
         mvsquid2=gltf.scene.children[0];
-        mvsquid2.scale.set(50, 50, 50);
+        mvsquid2.scale.set(150, 150, 150);
         mvsquid2.position.x=-600;
-        mvsquid2.position.y=-1000;
-        mvsquid2.position.z=9000;
+        mvsquid2.position.y=-800;
+        mvsquid2.position.z=1000;
         
         scene.add(gltf.scene);
         animate_squid2();
