@@ -74,6 +74,8 @@ transparent:true,});
     makeInstance(geometry, 0x44aa88,  0),
    
   ];
+
+  // ground
   var groundTexture = new THREE.TextureLoader().load( "floor.jpg" );
   groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
   groundTexture.repeat.set( 10000, 10000 );
@@ -85,6 +87,34 @@ transparent:true,});
   mesh.rotation.x = - Math.PI / 2;
   mesh.receiveShadow = true;
   scene.add( mesh );
+
+  // right wall - 광원 추가해야 보임
+  var rightwallTexture = new THREE.TextureLoader().load( "floor.jpg" );
+  rightwallTexture.wrapS = rightwallTexture.wrapT = THREE.RepeatWrapping;
+  rightwallTexture.repeat.set( 10000, 10000 );
+  rightwallTexture.anisotropy = 16;
+  rightwallTexture.encoding = THREE.sRGBEncoding;
+  var rightwallMaterial=new THREE.MeshStandardMaterial({map:rightwallTexture});
+  var right_wall_mesh=new THREE.Mesh(new THREE.PlaneBufferGeometry(10000,10000),rightwallMaterial);
+  
+  right_wall_mesh.rotation.y = - Math.PI / 2;
+  right_wall_mesh.position.x = -5000;
+  right_wall_mesh.receiveShadow = true;
+  scene.add( right_wall_mesh );
+
+  // left wall
+  var leftwallTexture = new THREE.TextureLoader().load( "floor.jpg" );
+  leftwallTexture.wrapS = leftwallTexture.wrapT = THREE.RepeatWrapping;
+  leftwallTexture.repeat.set( 10000, 10000 );
+  leftwallTexture.anisotropy = 16;
+  leftwallTexture.encoding = THREE.sRGBEncoding;
+  var leftwallMaterial=new THREE.MeshStandardMaterial({map:leftwallTexture});
+  var left_wall_mesh=new THREE.Mesh(new THREE.PlaneBufferGeometry(10000,10000),leftwallMaterial);
+  
+  left_wall_mesh.rotation.y = - Math.PI / 2;
+  left_wall_mesh.position.x = 5000;
+  left_wall_mesh.receiveShadow = true;
+  scene.add( left_wall_mesh );
 
   // background
   const loader=new THREE.CubeTextureLoader();
