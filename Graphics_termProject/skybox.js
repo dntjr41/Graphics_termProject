@@ -99,7 +99,8 @@ transparent:true,});
   
   right_wall_mesh.rotation.y = - Math.PI / 2;
   right_wall_mesh.position.x = -5000;
-  right_wall_mesh.receiveShadow = true;
+  right_wall_mesh.receiveShadow = false;
+  right_wall_mesh.rotation.y=359.71836;
   scene.add( right_wall_mesh );
 
   // left wall
@@ -139,11 +140,13 @@ transparent:true,});
 	light2.position.set(5000,1000,0);
 	scene.add(light2);
 	light3 = new THREE.PointLight(0xc4c4c4,1);
-	light3.position.set(0,1000,-5000);
+	light3.position.set(0,5000,-5000);
 	scene.add(light3);
 	light4 = new THREE.PointLight(0xc4c4c4,1);
-	light4.position.set(-5000,3000,5000);
+	light4.position.set(-5000,5000,2500);
 	scene.add(light4);
+  
+  
 
   //finish line
   const line_loader = new THREE.GLTFLoader();
