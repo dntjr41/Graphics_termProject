@@ -1,4 +1,5 @@
 let scene, camera, renderer;
+let player_loaded=0;
 window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
@@ -38,7 +39,7 @@ window.onload=function init() {
     {
       if(key=='ArrowUp' || key=='ArrowDown' || key=='ArrowLeft' || key=='ArrowRight' )
       {
-        alert("게임 종료");
+       // alert("게임 종료");
       }
     }
    
@@ -194,11 +195,11 @@ transparent:true,});
   player_loader.load('./squid_game_player/scene.gltf',function(gltf){
   player=gltf.scene.children[0];
   player.scale.set(200,200,200);
-    player.position.x=3;
+    player.position.x=0;
     player.position.y=-1000;
     
     player.position.z=-4800;
-    
+    player_loaded=1;
     scene.add(gltf.scene);
     //animate();
   }, undefined,function(error){
@@ -348,13 +349,13 @@ transparent:true,});
   // bigSquid
   const bigSquid=new THREE.GLTFLoader();
   bigSquid.load('./squid_game_bigSquid/scene.gltf',function(gltf){
-    squid=gltf.scene.children[0];
-    squid.scale.set(1.6,1.6,1.6);
-    squid.rotation.z=500;
-    squid.position.x=-1000;
-    squid.position.y=-800;
-    squid.position.z=500;
-    
+    squid1=gltf.scene.children[0];
+    squid1.scale.set(1.6,1.6,1.6);
+    squid1.rotation.z=500;
+    squid1.position.x=-1000;
+    squid1.position.y=-800;
+    squid1.position.z=500;
+    console.log("big squid loaded");
     scene.add(gltf.scene);
     //animate();
   }, undefined,function(error){
@@ -364,12 +365,12 @@ transparent:true,});
   // bigSquid2
   const bigSquid2=new THREE.GLTFLoader();
   bigSquid2.load('./squid_game_bigSquid/scene.gltf',function(gltf){
-    squid=gltf.scene.children[0];
-    squid.scale.set(1.6, 1.6, 1.6);
-    squid.rotation.z=3000;
-    squid.position.x=1000;
-    squid.position.y=-800;
-    squid.position.z=-2000;
+    squid2=gltf.scene.children[0];
+    squid2.scale.set(1.6, 1.6, 1.6);
+    squid2.rotation.z=3000;
+    squid2.position.x=1000;
+    squid2.position.y=-800;
+    squid2.position.z=-2000;
     
     scene.add(gltf.scene);
     //animate();
@@ -378,14 +379,14 @@ transparent:true,});
   });
 
   // Octopus
-  const octopus=new THREE.GLTFLoader();
-  octopus.load('./squid_game_octopus/scene.gltf',function(gltf){
-    squid=gltf.scene.children[0];
-    squid.scale.set(700,700,700);
-    squid.rotation.z=1000;
-    squid.position.x=1500;
-    squid.position.y=-200;
-    squid.position.z=2000;
+  const Octopus=new THREE.GLTFLoader();
+  Octopus.load('./squid_game_octopus/scene.gltf',function(gltf){
+    octopus=gltf.scene.children[0];
+    octopus.scale.set(700,700,700);
+    octopus.rotation.z=1000;
+    octopus.position.x=1500;
+    octopus.position.y=-200;
+    octopus.position.z=2000;
     
     scene.add(gltf.scene);
     //animate();
@@ -467,8 +468,8 @@ function animate() {
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
 }
-
-
+/////////////////////////////////////////////////////////////////////////////////
+// 장애물 충돌 시 게임 종료 -> squid1, squid2, octopus 좌표 재설정 필요, 장애물 충돌 조건 함수화 필요
 function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
@@ -477,6 +478,34 @@ function move_left(add)
   camera.position.x+=add/5;
 
   renderer.render(scene,camera);
+
+  min1_x=Math.round(mvsquid.position.x)-16;
+  max1_x=Math.round(mvsquid.position.x)+16;
+  min1_z=Math.round(mvsquid.position.z)-16;
+  max1_z=Math.round(mvsquid.position.z)+16;
+  min2_x=Math.round(mvsquid2.position.x)-16;
+  max2_x=Math.round(mvsquid2.position.x)+16;
+  min2_z=Math.round(mvsquid2.position.z)-16;
+  max2_z=Math.round(mvsquid2.position.z)+16;
+  min_sq1_z=-4300;
+  max_sq1_z=-1500;
+  min_sq1_x=500;
+  max_sq1_x=1000;
+  min_sq2_z=-1700;
+  max_sq2_z=900;
+  max_sq2_x=-600;
+  min_sq2_x=-1400
+  min_oc_z=-2000;
+  max_oc_z=700;
+  min_oc_x=200;
+  max_oc_x=2400;
+
+  if((min1_x<=player.position.x&&player.position.x<=max1_x&&min1_z<=player.position.z&&player.position.z<=max1_z)||(min2_x<=player.position.x&&player.position.x<=max2_x&&min2_z<=player.position.z&&player.position.z<=max2_z)||(min_sq1_x<=player.position.x&&player.position.x<=max_sq1_x&&min_sq1_z<=player.position.z&&player.position.z<=max_sq1_z)||(min_sq2_x<=player.position.x&&player.position.x<=max_sq2_x&&min_sq2_z<=player.position.z&&player.position.z<=max_sq2_z)||(min_oc_x<=player.position.x&&player.position.x<=max_oc_x&&min_oc_z<=player.position.z&&player.position.z<=max_oc_z))
+    {
+      console.log("충돌!");
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+
   requestAnimationFrame(animate); 
 }
 
@@ -486,8 +515,35 @@ function move_right(add)
   player.position.x-=add;
 
   camera.position.x-=add/5;
-
   renderer.render(scene,camera);
+
+ min1_x=Math.round(mvsquid.position.x)-16;
+  max1_x=Math.round(mvsquid.position.x)+16;
+  min1_z=Math.round(mvsquid.position.z)-16;
+  max1_z=Math.round(mvsquid.position.z)+16;
+  min2_x=Math.round(mvsquid2.position.x)-16;
+  max2_x=Math.round(mvsquid2.position.x)+16;
+  min2_z=Math.round(mvsquid2.position.z)-16;
+  max2_z=Math.round(mvsquid2.position.z)+16;
+  min_sq1_z=-4300;
+  max_sq1_z=-1500;
+  min_sq1_x=500;
+  max_sq1_x=1000;
+  min_sq2_z=-1700;
+  max_sq2_z=900;
+  max_sq2_x=-600;
+  min_sq2_x=-1400
+  min_oc_z=-2000;
+  max_oc_z=700;
+  min_oc_x=200;
+  max_oc_x=2400;
+
+  if((min1_x<=player.position.x&&player.position.x<=max1_x&&min1_z<=player.position.z&&player.position.z<=max1_z)||(min2_x<=player.position.x&&player.position.x<=max2_x&&min2_z<=player.position.z&&player.position.z<=max2_z)||(min_sq1_x<=player.position.x&&player.position.x<=max_sq1_x&&min_sq1_z<=player.position.z&&player.position.z<=max_sq1_z)||(min_sq2_x<=player.position.x&&player.position.x<=max_sq2_x&&min_sq2_z<=player.position.z&&player.position.z<=max_sq2_z)||(min_oc_x<=player.position.x&&player.position.x<=max_oc_x&&min_oc_z<=player.position.z&&player.position.z<=max_oc_z))
+    {
+      console.log("충돌!");
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+
   requestAnimationFrame(animate);
 }
 
@@ -496,6 +552,34 @@ function move(add)
   player.position.z+=add;
   camera.position.z+=add/5;
   renderer.render(scene,camera);
+  console.log("player position: ",player.position);
+  min1_x=Math.round(mvsquid.position.x)-16;
+  max1_x=Math.round(mvsquid.position.x)+16;
+  min1_z=Math.round(mvsquid.position.z)-16;
+  max1_z=Math.round(mvsquid.position.z)+16;
+  min2_x=Math.round(mvsquid2.position.x)-16;
+  max2_x=Math.round(mvsquid2.position.x)+16;
+  min2_z=Math.round(mvsquid2.position.z)-16;
+  max2_z=Math.round(mvsquid2.position.z)+16;
+  min_sq1_z=-4300;
+  max_sq1_z=-1500;
+  min_sq1_x=500;
+  max_sq1_x=1000;
+  min_sq2_z=-1700;
+  max_sq2_z=900;
+  max_sq2_x=-600;
+  min_sq2_x=-1400
+  min_oc_z=-2000;
+  max_oc_z=700;
+  min_oc_x=200;
+  max_oc_x=2400;
+
+  if((min1_x<=player.position.x&&player.position.x<=max1_x&&min1_z<=player.position.z&&player.position.z<=max1_z)||(min2_x<=player.position.x&&player.position.x<=max2_x&&min2_z<=player.position.z&&player.position.z<=max2_z)||(min_sq1_x<=player.position.x&&player.position.x<=max_sq1_x&&min_sq1_z<=player.position.z&&player.position.z<=max_sq1_z)||(min_sq2_x<=player.position.x&&player.position.x<=max_sq2_x&&min_sq2_z<=player.position.z&&player.position.z<=max_sq2_z)||(min_oc_x<=player.position.x&&player.position.x<=max_oc_x&&min_oc_z<=player.position.z&&player.position.z<=max_oc_z))
+    {
+      console.log("충돌!");
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+
   requestAnimationFrame(animate);
 }
 
@@ -504,6 +588,34 @@ function move_back(add)
   player.position.z-=add;
   camera.position.z-=add/5;
   renderer.render(scene,camera);
+
+  min1_x=Math.round(mvsquid.position.x)-16;
+  max1_x=Math.round(mvsquid.position.x)+16;
+  min1_z=Math.round(mvsquid.position.z)-16;
+  max1_z=Math.round(mvsquid.position.z)+16;
+  min2_x=Math.round(mvsquid2.position.x)-16;
+  max2_x=Math.round(mvsquid2.position.x)+16;
+  min2_z=Math.round(mvsquid2.position.z)-16;
+  max2_z=Math.round(mvsquid2.position.z)+16;
+  min_sq1_z=-4300;
+  max_sq1_z=-1500;
+  min_sq1_x=500;
+  max_sq1_x=1000;
+  min_sq2_z=-1700;
+  max_sq2_z=900;
+  max_sq2_x=-600;
+  min_sq2_x=-1400
+  min_oc_z=-2000;
+  max_oc_z=700;
+  min_oc_x=200;
+  max_oc_x=2400;
+
+  if((min1_x<=player.position.x&&player.position.x<=max1_x&&min1_z<=player.position.z&&player.position.z<=max1_z)||(min2_x<=player.position.x&&player.position.x<=max2_x&&min2_z<=player.position.z&&player.position.z<=max2_z)||(min_sq1_x<=player.position.x&&player.position.x<=max_sq1_x&&min_sq1_z<=player.position.z&&player.position.z<=max_sq1_z)||(min_sq2_x<=player.position.x&&player.position.x<=max_sq2_x&&min_sq2_z<=player.position.z&&player.position.z<=max_sq2_z)||(min_oc_x<=player.position.x&&player.position.x<=max_oc_x&&min_oc_z<=player.position.z&&player.position.z<=max_oc_z))
+    {
+      console.log("충돌!");
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+
   requestAnimationFrame(animate);
 }
 }
@@ -515,14 +627,47 @@ function animate_squid(time) {
   mvsquid.position.z=time;
   mvsquid.position.x=time;
   renderer.render(scene,camera);
+
+  if(player_loaded==1)
+  {
+    // console.log("squid position: ",mvsquid.position);
+    // console.log("player position: ",player.position);
+    min_x=Math.round(mvsquid.position.x)-16;
+    max_x=Math.round(mvsquid.position.x)+16;
+    min_z=Math.round(mvsquid.position.z)-16;
+    max_z=Math.round(mvsquid.position.z)+16;
+    if(min_x<=player.position.x&&player.position.x<=max_x&&min_z<=player.position.z&&player.position.z<=max_z)
+    {
+     
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+  }
+
   requestAnimationFrame(animate_squid);
 }
 
 // animation Squid
 function animate_squid2(time) {
-  time*=-0.01;
+  time=(time*-0.01);
   mvsquid2.position.z=time;
   mvsquid2.position.x=time;
   renderer.render(scene,camera);
+  
+  if(player_loaded==1)
+  {
+   
+  min_x=Math.round(mvsquid2.position.x)-16;
+  max_x=Math.round(mvsquid2.position.x)+16;
+  min_z=Math.round(mvsquid2.position.z)-16;
+  max_z=Math.round(mvsquid2.position.z)+16;
+  
+  
+  if(min_x<=player.position.x&&player.position.x<=max_x&&min_z<=player.position.z&&player.position.z<=max_z)
+    {
+     
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+  }
+
   requestAnimationFrame(animate_squid2);
 }
