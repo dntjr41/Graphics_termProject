@@ -3,35 +3,47 @@ window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
+  let catchtime=0; // when girl turn around
 
   let add=100;
-  // 키보드 동작 함수
+  // keyboard function
   window.addEventListener("keydown", e => {
     const key=e.key;
     console.log(key);
     console.log(e);
-    if(key=='ArrowUp') // 방향 키 위
+    if(catchtime==0)
     {
-      move(add);
-    }
-    if(key=='ArrowDown') // 방향 키 아래
-    {
-      move_back(add);
-    }
-    if(key=='ArrowLeft') // 방향 키 왼쪽
-    {
-      move_left(add);
-    }
-    if(key=='ArrowRight') // 방향 키 오른쪽
-    {
-      move_right(add);
-    }
-    if(e.code=='Space') // 스페이스 바
-    {
+      if(key=='ArrowUp') // up
+      {
+        move(add);
+      }
+      if(key=='ArrowDown') // down
+      {
+        move_back(add);
+      }
+      if(key=='ArrowLeft') // left
+      {
+        move_left(add);
+      }
+      if(key=='ArrowRight') // right
+      {
+        move_right(add);
+      }
+      if(e.code=='Space') // space
+      {
       
+      }
     }
+    else if(catchtime==1)
+    {
+      if(key=='ArrowUp' || key=='ArrowDown' || key=='ArrowLeft' || key=='ArrowRight' )
+      {
+        alert("게임 종료");
+      }
+    }
+   
   });
-  window.addEventListener("keyup", e => { // 키보드에서 뗏을 때, 
+  window.addEventListener("keyup", e => { // when keyboard up
     const key = document.getElementById(e.key);
     if (key) console.log(e);
   });
@@ -99,7 +111,7 @@ transparent:true,});
   
   right_wall_mesh.rotation.y = - Math.PI / 2;
   right_wall_mesh.position.x = -5000;
-  right_wall_mesh.receiveShadow = false;
+  right_wall_mesh.receiveShadow = true;
   right_wall_mesh.rotation.y=359.71836;
   scene.add( right_wall_mesh );
 
@@ -447,12 +459,15 @@ function sleep(ms) {
 function animate() {
   sleep(Math.random()*4000 + 4000)
   .then(() => girl.rotation.z=84.75)
+  .then(() =>catchtime=1)
   .then(() => sleep(Math.random()*2000 + 4000))
   .then(() => girl.rotation.z=0)
   .then(() => girl.translate.y=-10)
+  .then(() => catchtime=0)
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
 }
+
 
 function move_left(add)
 {
