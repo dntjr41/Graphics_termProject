@@ -1,2 +1,0 @@
-# Graphics_termProject
-Graphics_termProject
