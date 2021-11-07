@@ -71,7 +71,7 @@ window.onload=function init() {
   var audioLoader = new THREE.AudioLoader();
   
   //Load a sound and set it as the Audio object's buffer
-  audioLoader.load( 'squidVoice.mp3', function( buffer ) {
+  audioLoader.load( './media/squidVoice.mp3', function( buffer ) {
     sound.setBuffer( buffer );
     sound.setLoop(true);
     sound.setVolume(1.0);
@@ -109,7 +109,7 @@ transparent:true,});
   ];
 
   // ground
-  var groundTexture = new THREE.TextureLoader().load( "floor.jpg" );
+  var groundTexture = new THREE.TextureLoader().load( "./media/floor.jpg" );
   groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
   groundTexture.repeat.set( 10000, 10000 );
   groundTexture.anisotropy = 16;
@@ -122,7 +122,7 @@ transparent:true,});
   scene.add( mesh );
 
   // right wall - 광원 추가해야 보임
-  var rightwallTexture = new THREE.TextureLoader().load( "floor.jpg" );
+  var rightwallTexture = new THREE.TextureLoader().load( "/media/floor.jpg" );
   rightwallTexture.wrapS = rightwallTexture.wrapT = THREE.RepeatWrapping;
   rightwallTexture.repeat.set( 10000, 10000 );
   rightwallTexture.anisotropy = 16;
@@ -137,7 +137,7 @@ transparent:true,});
   scene.add( right_wall_mesh );
 
   // left wall
-  var leftwallTexture = new THREE.TextureLoader().load( "floor.jpg" );
+  var leftwallTexture = new THREE.TextureLoader().load( "/media/floor.jpg" );
   leftwallTexture.wrapS = leftwallTexture.wrapT = THREE.RepeatWrapping;
   leftwallTexture.repeat.set( 10000, 10000 );
   leftwallTexture.anisotropy = 16;
@@ -183,7 +183,7 @@ transparent:true,});
 
   //finish line
   const line_loader = new THREE.GLTFLoader();
-	line_loader.load('./squid_game_finish_line/scene.gltf', function(gltf){
+	line_loader.load('./object/squid_game_finish_line/scene.gltf', function(gltf){
 	line = gltf.scene.children[0];
 	line.scale.set(3.9,3,2.5);
   line.position.x=0;
@@ -212,7 +212,7 @@ transparent:true,});
   // 팔다리가 움직이게 할 수 있음 좋겠음
   // player
   const player_loader=new THREE.GLTFLoader();
-  player_loader.load('./squid_game_player/scene.gltf',function(gltf){
+  player_loader.load('./object/squid_game_player/scene.gltf',function(gltf){
   player=gltf.scene.children[0];
   player.scale.set(200,200,200);
     player.position.x=0;
@@ -368,7 +368,7 @@ transparent:true,});
   ////////////////////// 오징어 (장애물) /////////////////////////////////
   // bigSquid
   const bigSquid=new THREE.GLTFLoader();
-  bigSquid.load('./squid_game_bigSquid/scene.gltf',function(gltf){
+  bigSquid.load('./object/squid_game_bigSquid/scene.gltf',function(gltf){
     squid1=gltf.scene.children[0];
     squid1.scale.set(1.6,1.6,1.6);
     squid1.rotation.z=500;
@@ -384,7 +384,7 @@ transparent:true,});
 
   // bigSquid2
   const bigSquid2=new THREE.GLTFLoader();
-  bigSquid2.load('./squid_game_bigSquid/scene.gltf',function(gltf){
+  bigSquid2.load('./object/squid_game_bigSquid/scene.gltf',function(gltf){
     squid2=gltf.scene.children[0];
     squid2.scale.set(1.6, 1.6, 1.6);
     squid2.rotation.z=3000;
@@ -400,7 +400,7 @@ transparent:true,});
 
   // Octopus
   const Octopus=new THREE.GLTFLoader();
-  Octopus.load('./squid_game_octopus/scene.gltf',function(gltf){
+  Octopus.load('./object/squid_game_octopus/scene.gltf',function(gltf){
     octopus=gltf.scene.children[0];
     octopus.scale.set(700,700,700);
     octopus.rotation.z=1000;
@@ -417,7 +417,7 @@ transparent:true,});
 
   // moveSquid
   const moveSquid=new THREE.GLTFLoader();
-  moveSquid.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
+  moveSquid.load('./object/squid_game_cuteSquid/scene.gltf',function(gltf){
       mvsquid=gltf.scene.children[0];
       mvsquid.scale.set(150, 150, 150);
       mvsquid.position.x=-300;
@@ -432,10 +432,10 @@ transparent:true,});
 
   // moveSquid2
   const moveSquid2=new THREE.GLTFLoader();
-  moveSquid2.load('./squid_game_cuteSquid/scene.gltf',function(gltf){
+  moveSquid2.load('./object/squid_game_cuteSquid/scene.gltf',function(gltf){
         mvsquid2=gltf.scene.children[0];
         mvsquid2.scale.set(150, 150, 150);
-        mvsquid2.position.x=-600;
+        mvsquid2.position.x=-200;
         mvsquid2.position.y=-800;
         mvsquid2.position.z=1000;
         
@@ -642,9 +642,13 @@ function move_back(add)
 
 // animation Squid
 function animate_squid(time) {
-  time*=0.01;
+  time*=0.2;
 
-  mvsquid.position.z=time;
+  if (mvsquid.position.x > 2500) {
+    mvsquid.position.x = 2500;
+    time*=-1;
+  }
+
   mvsquid.position.x=time;
   renderer.render(scene,camera);
 
@@ -668,9 +672,8 @@ function animate_squid(time) {
 
 // animation Squid
 function animate_squid2(time) {
-  time=(time*-0.01);
+  time*=0.15;
   mvsquid2.position.z=time;
-  mvsquid2.position.x=time;
   renderer.render(scene,camera);
   
   if(player_loaded==1)
