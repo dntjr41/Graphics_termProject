@@ -59,7 +59,6 @@ window.onload=function init() {
   renderer.setSize(window.innerWidth,window.innerHeight);
   document.body.appendChild(renderer.domElement);
   const controls=new THREE.OrbitControls(camera, renderer.domElement);
-
  
   const boxWidth = 5000;
   const boxHeight = 5000;
@@ -87,6 +86,26 @@ transparent:true,});
     makeInstance(geometry, 0x44aa88,  0),
    
   ];
+
+  /////////////////////////////////////////////////////////
+  // create an AudioListener and add it to the camera
+  var listener = new THREE.AudioListener();
+  camera.add( listener );
+  
+  // create a global audio source
+  var sound = new THREE.Audio( listener );
+  
+  var audioLoader = new THREE.AudioLoader();
+  
+  //Load a sound and set it as the Audio object's buffer
+  audioLoader.load( 'squidVoice.ogg', function( buffer ) {
+    sound.setBuffer( buffer );
+    sound.setLoop(true);
+    sound.setVolume(1.0);
+    sound.play();
+    }
+  );
+  /////////////////////////////////////////////////////////
 
   // ground
   var groundTexture = new THREE.TextureLoader().load( "floor.jpg" );
