@@ -52,7 +52,7 @@ window.onload=function init() {
   camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,100,30000);
   //camera=new THREE.PerspectiveCamera(100,2,0.5,100);
   //camera.position.set(900,-2000,-900);
-  camera.position.set(0,-100,-2500);
+  camera.position.set(0,150,-7000);
   console.log(camera.position);
   // camera.position.set(0,0,-100);
   renderer = new THREE.WebGLRenderer({canvas});
@@ -495,7 +495,7 @@ function move_left(add)
   // player.rotation.z-=add; // change player's direction
   player.position.x+=add;
 
-  camera.position.x+=add/5;
+  camera.position.x+=add/3;
 
   renderer.render(scene,camera);
 
@@ -534,7 +534,7 @@ function move_right(add)
   // player.rotation.z+=add; // change player's direction
   player.position.x-=add;
 
-  camera.position.x-=add/5;
+  camera.position.x-=add/3;
   renderer.render(scene,camera);
 
  min1_x=Math.round(mvsquid.position.x)-16;
@@ -570,7 +570,7 @@ function move_right(add)
 function move(add)
 {
   player.position.z+=add;
-  camera.position.z+=add/5;
+  camera.position.z+=add/3;
   renderer.render(scene,camera);
   console.log("player position: ",player.position);
   min1_x=Math.round(mvsquid.position.x)-16;
@@ -606,7 +606,7 @@ function move(add)
 function move_back(add)
 {
   player.position.z-=add;
-  camera.position.z-=add/5;
+  camera.position.z-=add/3;
   renderer.render(scene,camera);
 
   min1_x=Math.round(mvsquid.position.x)-16;
