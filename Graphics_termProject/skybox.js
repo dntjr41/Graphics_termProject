@@ -81,33 +81,6 @@ window.onload=function init() {
   );
   /////////////////////////////////////////////////////////
 
- 
-  const boxWidth = 5000;
-  const boxHeight = 5000;
-  const boxDepth = 5000;
-  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-
-  function makeInstance(geometry, color, x) {
-    const material = new THREE.MeshPhongMaterial({color,
-    opacity:0.5,
-transparent:true,});
-//const material = new THREE.MeshPhongMaterial({color});
-    const cube = new THREE.Mesh(geometry, material);
-    
-
-    cube.position.x = x+10;
-    console.log("y: ",cube.position.y);
-    cube.position.y = 5;
-    console.log("y: ",cube.position.y);
-
-    scene.add(cube);
-    return cube;
-  }
-
-  const cubes = [
-    makeInstance(geometry, 0x44aa88,  0),
-   
-  ];
 
   // ground
   var groundTexture = new THREE.TextureLoader().load( "./media/floor.jpg" );
