@@ -5,6 +5,7 @@ window.onload=function init() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
   let catchtime=0; // when girl turn around
+  
 
   let add=100;
   // keyboard function
@@ -52,7 +53,7 @@ window.onload=function init() {
   camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,100,30000);
   //camera=new THREE.PerspectiveCamera(100,2,0.5,100);
   //camera.position.set(900,-2000,-900);
-  camera.position.set(0,150,-7000);
+  camera.position.set(0,-100,-7000);
   console.log(camera.position);
   // camera.position.set(0,0,-100);
   renderer = new THREE.WebGLRenderer({canvas});
@@ -214,6 +215,7 @@ transparent:true,});
   const player_loader=new THREE.GLTFLoader();
   player_loader.load('./object/squid_game_player/scene.gltf',function(gltf){
   player=gltf.scene.children[0];
+  console.log(gltf)
   player.scale.set(200,200,200);
     player.position.x=0;
     player.position.y=-1000;
@@ -642,14 +644,21 @@ function move_back(add)
 
 // animation Squid
 function animate_squid(time) {
-  time*=0.2;
-
-  if (mvsquid.position.x > 2500) {
-    mvsquid.position.x = 2500;
-    time*=-1;
-  }
-
+  time*=0.5;
   mvsquid.position.x=time;
+  if (mvsquid.position.x > 5000) 
+  {
+    mvsquid.position.x = 5000;
+    time*=-0.5;
+    mvsquid.position.x=5000+time;
+    if (mvsquid.position.x < -5000) 
+    {
+      mvsquid.position.x = -5000;
+      time*=-0.25;
+      mvsquid.position.x=-5000+time;
+    }
+  }
+  
   renderer.render(scene,camera);
 
   if(player_loaded==1)
@@ -674,6 +683,7 @@ function animate_squid(time) {
 function animate_squid2(time) {
   time*=0.15;
   mvsquid2.position.z=time;
+  
   renderer.render(scene,camera);
   
   if(player_loaded==1)
