@@ -3,25 +3,24 @@
 
 <head>
 	<meta charset=utf-8>
-	<title>Red light, Green light</title>
+	<title>Select the level of game</title>
 	<link rel="stylesheet" 
           href="https://fonts.googleapis.com/css?family=Rancho">
 	<style type="text/css">
 		body {
-      		background-image:url("./media/squid1.gif");
-      		background-size: 60%, 60%;
+      		background-image:url("./media/levelText.webp");
+      		background-size: 65%, 65%;
 			background-color: beige;
     	}
-		
 		.title {
       		position: fixed;
-      		top: 20px;
-      		left: 590px;
+      		top: 10px;
+      		left: 550px;
     	}
 
     	.title h2{
       		font-family: 'Rancho', cursive;
-			font-size: 80px;
+			font-size: 75px;
       		font-weight: normal;
       		color: #e20b0b;
     	}
@@ -34,27 +33,29 @@
     	.btn-group .button {
       		font-family: 'Rancho', cursive;
 			font-size: 50px;
-      		background-color: #43d99b;
-			width: 300px;
+      		background-color: #fcf9f9;
+			width: 200px;
       		border: 0px;
 			border-radius: 10px;
-      		color: #0cff04;
-      		padding: 10px 20px;
+      		color: #f50404;
+      		padding: 15px 25px;
       		text-align: center;
       		cursor: pointer;
       		display: block;
-      		margin: 50px 0px 0px 0px;
+      		margin: 30px 0px 0px 0px;
     	}
 	</style>
 </head>
+
 <body>
 	<div class="title">
 		<h2>
-		  Red light, Green light
+		Select the Level of game
 		</h2>
 	</div>
 	<div class="btn-group">
-		<button class="button" onclick = "location.href = 'selectLevel.html'">Start !!</button>
+		<button class="button" onclick = "location.href = 'index.html'">Normal</button>
+		<button class="button" onclick = "location.href = 'index.html'">Hard</button>
 	</div>
 </body>
 
