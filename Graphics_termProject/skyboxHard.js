@@ -72,7 +72,7 @@ window.onload=function init() {
   var audioLoader = new THREE.AudioLoader();
   
   //Load a sound and set it as the Audio object's buffer
-  audioLoader.load( './media/squidVoice.mp3', function( buffer ) {
+  audioLoader.load( './media/squidVoiceHard.mp3', function( buffer ) {
     sound.setBuffer( buffer );
     sound.setLoop(true);
     sound.setVolume(0.1);
@@ -420,6 +420,21 @@ window.onload=function init() {
         console.error(error);
     });
 
+  // moveSquid2
+  const moveSquid3=new THREE.GLTFLoader();
+  moveSquid3.load('./object/squid_game_cuteSquid/scene.gltf',function(gltf){
+        mvsquid3=gltf.scene.children[0];
+        mvsquid3.scale.set(150, 150, 150);
+        mvsquid3.position.x=000;
+        mvsquid3.position.y=-800;
+        mvsquid3.position.z=000;
+        
+        scene.add(gltf.scene);
+        animate_squid3();
+    }, undefined,function(error){
+        console.error(error);
+  });
+
   ////////////////////// 움직이는 오징어 //////////////////////////////////
 
   // 무궁화 꽃이 피었습니다. floating 3d text
@@ -453,10 +468,10 @@ function sleep(ms) {
   
   // girl animation
 function animate() {
-  sleep(4800)
+  sleep(3100)
   .then(() => girl.rotation.z=84.75)
   .then(() =>catchtime=1)
-  .then(() => sleep(4800))
+  .then(() => sleep(3100))
   .then(() => girl.rotation.z=0)
   .then(() => girl.translate.y=-10)
   .then(() => catchtime=0)
@@ -617,38 +632,122 @@ function move_back(add)
 
 // animation Squid
 function animate_squid(time) {
-  time*=0.5;
+  time*=1.0;
   mvsquid.position.x=time;
 
   if (mvsquid.position.x > 5000) {
     mvsquid.position.x=5000;
-    time*=-0.75;
-    mvsquid.position.x=8000+time;
+    time*=-1;
+    mvsquid.position.x=10000+time;
     
     if (mvsquid.position.x < -4000) {
       mvsquid.position.x=-4000;
-      time*=-0.75;
-      mvsquid.position.x=-13000+time;
+      time*=-1;
+      mvsquid.position.x=-18000+time;
 
       if (mvsquid.position.x > 5000) {
         mvsquid.position.x=5000;
         time*=-1.0;
-        mvsquid.position.x=23000+time;
+        mvsquid.position.x=28000+time;
 
         if (mvsquid.position.x < -4000) {
           mvsquid.position.x=-4000;
           time*=-1.0;
-          mvsquid.position.x=-30000+time;
+          mvsquid.position.x=-36000+time;
 
           if (mvsquid.position.x > 5000) {
-            mvsquid.position.x = 5000;
-            time*=-0.75;
-            mvsquid.position.x=30000+time;
-
+            mvsquid.position.x=5000;
+            time*=-1.0;
+            mvsquid.position.x=46000+time;
+    
             if (mvsquid.position.x < -4000) {
               mvsquid.position.x=-4000;
-              time*=-0.75;
-              mvsquid.position.x=-30000+time;
+              time*=-1.0;
+              mvsquid.position.x=-54000+time;
+
+              if (mvsquid.position.x > 5000) {
+                mvsquid.position.x=5000;
+                time*=-1.0;
+                mvsquid.position.x=64000+time;
+        
+                if (mvsquid.position.x < -4000) {
+                  mvsquid.position.x=-4000;
+                  time*=-1.0;
+                  mvsquid.position.x=-72000+time;
+
+                  if (mvsquid.position.x > 5000) {
+                    mvsquid.position.x=5000;
+                    time*=-1.0;
+                    mvsquid.position.x=82000+time;
+            
+                    if (mvsquid.position.x < -4000) {
+                      mvsquid.position.x=-4000;
+                      time*=-1.0;
+                      mvsquid.position.x=-90000+time;
+                      
+                      if (mvsquid.position.x > 5000) {
+                        mvsquid.position.x=5000;
+                        time*=-1.0;
+                        mvsquid.position.x=100000+time;
+                
+                        if (mvsquid.position.x < -4000) {
+                          mvsquid.position.x=-4000;
+                          time*=-1.0;
+                          mvsquid.position.x=-108000+time;
+                          
+                          if (mvsquid.position.x > 5000) {
+                            mvsquid.position.x=5000;
+                            time*=-1.0;
+                            mvsquid.position.x=118000+time;
+                    
+                            if (mvsquid.position.x < -4000) {
+                              mvsquid.position.x=-4000;
+                              time*=-1.0;
+                              mvsquid.position.x=-126000+time;
+
+                              if (mvsquid.position.x > 5000) {
+                                mvsquid.position.x=5000;
+                                time*=-1.0;
+                                mvsquid.position.x=136000+time;
+                        
+                                if (mvsquid.position.x < -4000) {
+                                  mvsquid.position.x=-4000;
+                                  time*=-1.0;
+                                  mvsquid.position.x=-144000+time;
+
+                                  if (mvsquid.position.x > 5000) {
+                                    mvsquid.position.x=5000;
+                                    time*=-1.0;
+                                    mvsquid.position.x=154000+time;
+                            
+                                    if (mvsquid.position.x < -4000) {
+                                      mvsquid.position.x=-4000;
+                                      time*=-1.0;
+                                      mvsquid.position.x=-162000+time;  
+
+                                      if (mvsquid.position.x > 5000) {
+                                        mvsquid.position.x=5000;
+                                        time*=-1.0;
+                                        mvsquid.position.x=172000+time;
+                                
+                                        if (mvsquid.position.x < -4000) {
+                                          mvsquid.position.x=-4000;
+                                          time*=-1.0;
+                                          mvsquid.position.x=-180000+time;                            
+                                        }
+                                      }                         
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -666,7 +765,8 @@ function animate_squid(time) {
     max_x=Math.round(mvsquid.position.x)+16;
     min_z=Math.round(mvsquid.position.z)-16;
     max_z=Math.round(mvsquid.position.z)+16;
-    if(min_x<=player.position.x&&player.position.x<=max_x&&min_z<=player.position.z&&player.position.z<=max_z)
+    if(min_x<=player.position.x&&player.position.x<=max_x
+      &&min_z<=player.position.z&&player.position.z<=max_z)
     {
      
       alert("장애물에 부딪힘, 게임 종료")
@@ -676,40 +776,124 @@ function animate_squid(time) {
   requestAnimationFrame(animate_squid);
 }
 
-// animation Squid
+// animation Squid2
 function animate_squid2(time) {
-  time*=0.5;
+  time*=1.0;
   mvsquid2.position.z=time;
 
   if (mvsquid2.position.z > 5000) {
     mvsquid2.position.z=5000;
-    time*=-0.75;
-    mvsquid2.position.z=8000+time;
+    time*=-1;
+    mvsquid2.position.z=10000+time;
     
     if (mvsquid2.position.z < -4000) {
       mvsquid2.position.z=-4000;
-      time*=-0.75;
-      mvsquid2.position.z=-13000+time;
+      time*=-1;
+      mvsquid2.position.z=-18000+time;
 
       if (mvsquid2.position.z > 5000) {
         mvsquid2.position.z=5000;
         time*=-1.0;
-        mvsquid2.position.z=23000+time;
+        mvsquid2.position.z=28000+time;
 
         if (mvsquid2.position.z < -4000) {
           mvsquid2.position.z=-4000;
           time*=-1.0;
-          mvsquid2.position.z=-30000+time;
+          mvsquid2.position.z=-36000+time;
 
           if (mvsquid2.position.z > 5000) {
-            mvsquid2.position.z = 5000;
-            time*=-0.75;
-            mvsquid2.position.z=30000+time;
-
+            mvsquid2.position.z=5000;
+            time*=-1.0;
+            mvsquid2.position.z=46000+time;
+    
             if (mvsquid2.position.z < -4000) {
               mvsquid2.position.z=-4000;
-              time*=-0.75;
-              mvsquid2.position.z=-30000+time;
+              time*=-1.0;
+              mvsquid2.position.z=-54000+time;
+
+              if (mvsquid2.position.z > 5000) {
+                mvsquid2.position.z=5000;
+                time*=-1.0;
+                mvsquid2.position.z=64000+time;
+        
+                if (mvsquid2.position.z < -4000) {
+                  mvsquid2.position.z=-4000;
+                  time*=-1.0;
+                  mvsquid2.position.z=-72000+time;
+
+                  if (mvsquid2.position.z > 5000) {
+                    mvsquid2.position.z=5000;
+                    time*=-1.0;
+                    mvsquid2.position.z=82000+time;
+            
+                    if (mvsquid2.position.z < -4000) {
+                      mvsquid2.position.z=-4000;
+                      time*=-1.0;
+                      mvsquid2.position.z=-90000+time;
+                      
+                      if (mvsquid2.position.z > 5000) {
+                        mvsquid2.position.z=5000;
+                        time*=-1.0;
+                        mvsquid2.position.z=100000+time;
+                
+                        if (mvsquid2.position.z < -4000) {
+                          mvsquid2.position.z=-4000;
+                          time*=-1.0;
+                          mvsquid2.position.z=-108000+time;
+                          
+                          if (mvsquid2.position.z > 5000) {
+                            mvsquid2.position.z=5000;
+                            time*=-1.0;
+                            mvsquid2.position.z=118000+time;
+                    
+                            if (mvsquid2.position.z < -4000) {
+                              mvsquid2.position.z=-4000;
+                              time*=-1.0;
+                              mvsquid2.position.z=-126000+time;
+
+                              if (mvsquid2.position.z > 5000) {
+                                mvsquid2.position.z=5000;
+                                time*=-1.0;
+                                mvsquid2.position.z=136000+time;
+                        
+                                if (mvsquid2.position.z < -4000) {
+                                  mvsquid2.position.z=-4000;
+                                  time*=-1.0;
+                                  mvsquid2.position.z=-144000+time;
+
+                                  if (mvsquid2.position.z > 5000) {
+                                    mvsquid2.position.z=5000;
+                                    time*=-1.0;
+                                    mvsquid2.position.z=154000+time;
+                            
+                                    if (mvsquid2.position.z < -4000) {
+                                      mvsquid2.position.z=-4000;
+                                      time*=-1.0;
+                                      mvsquid2.position.z=-162000+time;  
+
+                                      if (mvsquid2.position.z > 5000) {
+                                        mvsquid2.position.z=5000;
+                                        time*=-1.0;
+                                        mvsquid2.position.z=172000+time;
+                                
+                                        if (mvsquid2.position.z < -4000) {
+                                          mvsquid2.position.z=-4000;
+                                          time*=-1.0;
+                                          mvsquid2.position.z=-180000+time;                            
+                                        }
+                                      }                         
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -721,19 +905,204 @@ function animate_squid2(time) {
   
   if(player_loaded==1)
   {
-   
   min_x=Math.round(mvsquid2.position.x)-16;
   max_x=Math.round(mvsquid2.position.x)+16;
   min_z=Math.round(mvsquid2.position.z)-16;
   max_z=Math.round(mvsquid2.position.z)+16;
   
-  
-  if(min_x<=player.position.x&&player.position.x<=max_x&&min_z<=player.position.z&&player.position.z<=max_z)
+  if(min_x<=player.position.x&&player.position.x<=max_x
+    &&min_z<=player.position.z&&player.position.z<=max_z)
+    {
+      alert("장애물에 부딪힘, 게임 종료")
+    }
+  }
+
+  requestAnimationFrame(animate_squid2);
+}
+
+// animation Squid
+function animate_squid3(time) {
+  time*=1.0;
+  mvsquid3.position.x=time;
+  mvsquid3.position.z=time;
+
+  if (mvsquid3.position.x > 5000) {
+    mvsquid3.position.x=5000;
+    mvsquid3.position.z=5000;
+    time*=-1;
+    mvsquid3.position.x=10000+time;
+    mvsquid3.position.z=10000+time;
+    
+    if (mvsquid3.position.x < -4000) {
+      mvsquid3.position.x=-4000;
+      mvsquid3.position.z=-4000;
+      time*=-1;
+      mvsquid3.position.x=-18000+time;
+      mvsquid3.position.z=-18000+time;
+
+      if (mvsquid3.position.x > 5000) {
+        mvsquid3.position.x=5000;
+        mvsquid3.position.z=5000;
+        time*=-1.0;
+        mvsquid3.position.x=28000+time;
+        mvsquid3.position.z=28000+time;
+
+        if (mvsquid3.position.x < -4000) {
+          mvsquid3.position.x=-4000;
+          mvsquid3.position.z=-4000;
+          time*=-1.0;
+          mvsquid3.position.x=-36000+time;
+          mvsquid3.position.z=-36000+time;
+
+          if (mvsquid3.position.x > 5000) {
+            mvsquid3.position.x=5000;
+            mvsquid3.position.z=5000;
+            time*=-1.0;
+            mvsquid3.position.x=46000+time;
+            mvsquid3.position.z=46000+time;
+    
+            if (mvsquid3.position.x < -4000) {
+              mvsquid3.position.x=-4000;
+              mvsquid3.position.z=-4000;
+              time*=-1.0;
+              mvsquid3.position.x=-54000+time;
+              mvsquid3.position.z=-54000+time;
+
+              if (mvsquid3.position.x > 5000) {
+                mvsquid3.position.x=5000;
+                mvsquid3.position.z=5000;
+                time*=-1.0;
+                mvsquid3.position.x=64000+time;
+                mvsquid3.position.z=64000+time;
+        
+                if (mvsquid3.position.x < -4000) {
+                  mvsquid3.position.x=-4000;
+                  mvsquid3.position.z=-4000;
+                  time*=-1.0;
+                  mvsquid3.position.x=-72000+time;
+                  mvsquid3.position.z=-72000+time;
+
+                  if (mvsquid3.position.x > 5000) {
+                    mvsquid3.position.x=5000;
+                    mvsquid3.position.z=5000;
+                    time*=-1.0;
+                    mvsquid3.position.x=82000+time;
+                    mvsquid3.position.z=82000+time;
+            
+                    if (mvsquid3.position.x < -4000) {
+                      mvsquid3.position.x=-4000;
+                      mvsquid3.position.z=-4000;
+                      time*=-1.0;
+                      mvsquid3.position.x=-90000+time;
+                      mvsquid3.position.z=-90000+time;
+                      
+                      if (mvsquid3.position.x > 5000) {
+                        mvsquid3.position.x=5000;
+                        mvsquid3.position.z=5000;
+                        time*=-1.0;
+                        mvsquid3.position.x=100000+time;
+                        mvsquid3.position.z=100000+time;
+                
+                        if (mvsquid3.position.x < -4000) {
+                          mvsquid3.position.x=-4000;
+                          mvsquid3.position.z=-4000;
+                          time*=-1.0;
+                          mvsquid3.position.x=-108000+time;
+                          mvsquid3.position.z=-108000+time;
+                          
+                          if (mvsquid3.position.x > 5000) {
+                            mvsquid3.position.x=5000;
+                            mvsquid3.position.z=5000;
+                            time*=-1.0;
+                            mvsquid3.position.x=118000+time;
+                            mvsquid3.position.z=118000+time;
+                    
+                            if (mvsquid3.position.x < -4000) {
+                              mvsquid3.position.x=-4000;
+                              mvsquid3.position.z=-4000;
+                              time*=-1.0;
+                              mvsquid3.position.x=-126000+time;
+                              mvsquid3.position.z=-126000+time;
+
+                              if (mvsquid3.position.x > 5000) {
+                                mvsquid3.position.x=5000;
+                                mvsquid3.position.z=5000;
+                                time*=-1.0;
+                                mvsquid3.position.x=136000+time;
+                                mvsquid3.position.z=136000+time;
+                        
+                                if (mvsquid3.position.x < -4000) {
+                                  mvsquid3.position.x=-4000;
+                                  mvsquid3.position.z=-4000;
+                                  time*=-1.0;
+                                  mvsquid3.position.x=-144000+time;
+                                  mvsquid3.position.z=-144000+time;
+
+                                  if (mvsquid3.position.x > 5000) {
+                                    mvsquid3.position.x=5000;
+                                    mvsquid3.position.z=5000;
+                                    time*=-1.0;
+                                    mvsquid3.position.x=154000+time;
+                                    mvsquid3.position.z=154000+time;
+                            
+                                    if (mvsquid3.position.x < -4000) {
+                                      mvsquid3.position.x=-4000;
+                                      mvsquid3.position.z=-4000;
+                                      time*=-1.0;
+                                      mvsquid3.position.x=-162000+time;  
+                                      mvsquid3.position.z=-162000+time;
+
+                                      if (mvsquid3.position.x > 5000) {
+                                        mvsquid3.position.x=5000;
+                                        mvsquid3.position.z=5000;
+                                        time*=-1.0;
+                                        mvsquid3.position.x=172000+time;
+                                        mvsquid3.position.z=172000+time;
+                                
+                                        if (mvsquid3.position.x < -4000) {
+                                          mvsquid3.position.x=-4000;
+                                          mvsquid3.position.z=-4000;
+                                          time*=-1.0;
+                                          mvsquid3.position.x=-180000+time;  
+                                          mvsquid3.position.z=-180000+time;                          
+                                        }
+                                      }                         
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  renderer.render(scene,camera);
+
+  if(player_loaded==1)
+  {
+    // console.log("squid position: ",mvsquid.position);
+    // console.log("player position: ",player.position);
+    min_x=Math.round(mvsquid3.position.x)-16;
+    max_x=Math.round(mvsquid3.position.x)+16;
+    min_z=Math.round(mvsquid3.position.z)-16;
+    max_z=Math.round(mvsquid3.position.z)+16;
+    if(min_x<=player.position.x&&player.position.x<=max_x
+      &&min_z<=player.position.z&&player.position.z<=max_z)
     {
      
       alert("장애물에 부딪힘, 게임 종료")
     }
   }
 
-  requestAnimationFrame(animate_squid2);
+  requestAnimationFrame(animate_squid3);
 }
