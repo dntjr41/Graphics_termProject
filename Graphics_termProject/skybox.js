@@ -6,7 +6,7 @@ window.onload=function init() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
   let catchtime=0; // when girl turn around
-  
+  let mixer;
 
   let add=100;
   // keyboard function
@@ -201,11 +201,27 @@ window.onload=function init() {
   }, undefined,function(error){
     console.error(error);
   });
-  // animation player.
-  let animation_loader=new FBXLoader();
-  animation_loader.load('./object/animation_player/anim.fbx',function(object){
-    scene.add(object);
 
+  // animation player.
+  var animation_loader=new THREE.FBXLoader();
+  animation_loader.load('./object/animation_player/anim.fbx',function(object){
+  mixer=new THREE.AnimationMixer(object);
+  const action=mixer.clipAction(object.animations[0]);
+  action.play();
+  object.traverse( function ( child ) {
+    if ( child.isMesh ) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+
+    }
+
+  });
+  console.log(object);
+  object.position.x=200;
+  object.position.y=-1000
+  object.position.z=-4800;
+  object.scale.set(2.0,2.0,2.0);
+  scene.add( object);
   });
 
   /////////////////////////////////////////////////////////////////////
