@@ -1,5 +1,6 @@
 let scene, camera, renderer;
 let player_loaded=0;
+
 window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
@@ -199,6 +200,12 @@ window.onload=function init() {
     //animate();
   }, undefined,function(error){
     console.error(error);
+  });
+  // animation player.
+  let animation_loader=new FBXLoader();
+  animation_loader.load('./object/animation_player/anim.fbx',function(object){
+    scene.add(object);
+
   });
 
   /////////////////////////////////////////////////////////////////////
