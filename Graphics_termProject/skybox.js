@@ -7,6 +7,7 @@ window.onload=function init() {
 	canvas.height = window.innerHeight;
   let catchtime=0; // when girl turn around
   let mixer;
+  const clock = new THREE.Clock();
 
   let add=100;
   // keyboard function
@@ -207,6 +208,7 @@ window.onload=function init() {
   animation_loader.load('./object/animation_player/anim.fbx',function(object){
   mixer=new THREE.AnimationMixer(object);
   const action=mixer.clipAction(object.animations[0]);
+  action.reset();
   action.play();
   object.traverse( function ( child ) {
     if ( child.isMesh ) {
@@ -485,6 +487,13 @@ function animate() {
   .then(() => catchtime=0)
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
+  var delta = clock.getDelta();
+
+				if ( mixer ) {
+
+					mixer.update( delta );
+
+				}
 }
 /////////////////////////////////////////////////////////////////////////////////
 // 장애물 충돌 시 게임 종료 -> squid1, squid2, octopus 좌표 재설정 필요, 장애물 충돌 조건 함수화 필요
