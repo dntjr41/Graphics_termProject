@@ -50,6 +50,8 @@ window.onload=function init() {
   window.addEventListener("keyup", e => { // when keyboard up
     const key = document.getElementById(e.key);
     if (key) console.log(e);
+    const action=mixer.clipAction(anim.animations[0]);
+    action.reset();
   });
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,100,30000);
@@ -206,10 +208,17 @@ window.onload=function init() {
   // animation player.
   var animation_loader=new THREE.FBXLoader();
   animation_loader.load('./object/animation_player/anim.fbx',function(object){
+  anim=object;
+  
+  console.log(object);
+  object.position.x=200;
+  object.position.y=-1000
+  object.position.z=-4800;
+  object.scale.set(2.0,2.0,2.0);
+  scene.add( object);
   mixer=new THREE.AnimationMixer(object);
   const action=mixer.clipAction(object.animations[0]);
-  action.reset();
-  action.play();
+  
   object.traverse( function ( child ) {
     if ( child.isMesh ) {
       child.castShadow = true;
@@ -218,12 +227,7 @@ window.onload=function init() {
     }
 
   });
-  console.log(object);
-  object.position.x=200;
-  object.position.y=-1000
-  object.position.z=-4800;
-  object.scale.set(2.0,2.0,2.0);
-  scene.add( object);
+  
   });
 
   /////////////////////////////////////////////////////////////////////
@@ -487,7 +491,8 @@ function animate() {
   .then(() => catchtime=0)
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
-  var delta = clock.getDelta();
+  var delta=0.5;
+  console.log(delta);
 
 				if ( mixer ) {
 
@@ -501,6 +506,11 @@ function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
   player.position.x+=add;
+ 
+  const action=mixer.clipAction(anim.animations[0]);
+  action.play();
+  anim.position.x+=add;
+  
 
   camera.position.x+=add/3;
 
@@ -542,6 +552,9 @@ function move_right(add)
   player.position.x-=add;
 
   camera.position.x-=add/3;
+  const action=mixer.clipAction(anim.animations[0]);
+  action.play();
+  anim.position.x-=add;
   renderer.render(scene,camera);
 
  min1_x=Math.round(mvsquid.position.x)-16;
@@ -577,6 +590,12 @@ function move_right(add)
 function move(add)
 {
   player.position.z+=add;
+  const action=mixer.clipAction(anim.animations[0]);
+  action.play();
+  anim.position.z+=add;
+  
+ 
+ 
   camera.position.z+=add/3;
   renderer.render(scene,camera);
   console.log("player position: ",player.position);
