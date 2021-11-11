@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8>
+	<title>Select the level of game</title>
+	<link rel="stylesheet" 
+          href="https://fonts.googleapis.com/css?family=Rancho">
+	<style type="text/css">
+		body {
+      		background-image:url("./media/levelText.webp");
+      		background-size: 65%, 65%;
+			background-color: beige;
+    	}
+		.title {
+      		position: fixed;
+      		top: 150px;
+      		left: 850px;
+    	}
+
+    	.title h2{
+      		font-family: 'Rancho', cursive;
+			font-size: 75px;
+      		font-weight: normal;
+      		color: #e20b0b;
+    	}
+
+    	.btn-group {
+      		position: fixed;
+      		margin: 350px 0px 0px 1000px;
+    	}
+
+    	.btn-group .button {
+      		font-family: 'Rancho', cursive;
+			font-size: 50px;
+      		background-color: #fcf9f9;
+			width: 200px;
+      		border: 0px;
+			border-radius: 10px;
+      		color: #f50404;
+      		padding: 15px 25px;
+      		text-align: center;
+      		cursor: pointer;
+      		display: block;
+      		margin: 30px 0px 0px 0px;
+    	}
+	</style>
+</head>
+
+<body>
+	<div class="title">
+		<h2>
+		Select the Level of game
+		</h2>
+	</div>
+	<div class="btn-group">
+		<button class="button" onclick = "location.href = 'index.html'">Normal</button>
+		<button class="button" onclick = "location.href = 'indexHard.html'">Hard</button>
+	</div>
+</body>
+
+</html>
