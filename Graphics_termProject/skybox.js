@@ -457,7 +457,7 @@ window.onload=function init() {
     geometry.translate(xMid,1500,100);
     geometry.rotation
     let material=new THREE.MeshBasicMaterial({
-      color:0xff0000,
+      color:0xffffff,
       wireframe:false
     });
     let text_mesh=new THREE.Mesh(geometry,material);

@@ -1,5 +1,7 @@
 let scene, camera, renderer;
 let player_loaded=0;
+let win=0;
+
 window.onload=function init() {
   const canvas = document.getElementById( "gl-canvas" );
 	canvas.width = window.innerWidth;
@@ -41,6 +43,7 @@ window.onload=function init() {
       if(key=='ArrowUp' || key=='ArrowDown' || key=='ArrowLeft' || key=='ArrowRight' )
       {
        alert("술래에게 걸림 게임 종료");
+       window.open('about:blank', '_self').close();
       }
     }
    
@@ -451,25 +454,27 @@ window.onload=function init() {
   let fontLoader=new THREE.FontLoader();
   fontLoader.load("./Do Hyeon_Regular.json",font=>{
     let geometry=new THREE.TextGeometry(
-      "무궁화 꽃이 피었습니다.",
+      "무궁화꽃이피었습니다.",
       {
         font: font,
-        size:100,
+        size:300,
         height:0,
         curveSegments:12
+      
       }
     );
     geometry.computeBoundingBox();
     let xMid=-0.5*(geometry.boundingBox.max.x-geometry.boundingBox.min.x);
-    geometry.translate(xMid,500,0);
-    
+    geometry.translate(xMid,1500,100);
+    geometry.rotation
     let material=new THREE.MeshBasicMaterial({
       color:0xffffff,
-      wireframe:true
+      wireframe:false
     });
-    let mesh=new THREE.Mesh(geometry,material);
-    scene.add(mesh);
-    
+    let text_mesh=new THREE.Mesh(geometry,material);
+    text_mesh.position.z=1000;
+    text_mesh.rotation.y=-10050;
+    scene.add(text_mesh);
   });
 
 function sleep(ms) {
@@ -503,6 +508,12 @@ function move_left(add)
   // player.rotation.z-=add; // change player's direction
   const action=mixer.clipAction(player.animations[0]);
   action.play();
+  if(player.position.x >= 2800){
+    return;
+  }
+  if(player.position.z>=4750){
+    return;
+  }
   player.position.x+=add;
 
   camera.position.x+=add/3;
@@ -534,6 +545,7 @@ function move_left(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate); 
@@ -545,6 +557,13 @@ function move_right(add)
   const action=mixer.clipAction(player.animations[0]);
   action.play();
   
+  if(player.position.x<= -2800){
+    return;
+  }
+  if(player.position.z>=4750){
+    return;
+  }
+
   player.position.x-=add;
   camera.position.x-=add/3;
   renderer.render(scene,camera);
@@ -574,6 +593,7 @@ function move_right(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate);
@@ -581,6 +601,15 @@ function move_right(add)
 
 function move(add)
 {
+  if(player.position.z>=4750 && win==0){
+    alert("You win!");
+    win+=1;
+    window.open('about:blank', '_self').close();
+    return;
+  }
+  else if(player.position.z>=4750){
+    return;
+  }
   const action=mixer.clipAction(player.animations[0]);
   action.play();
   player.position.z+=add;
@@ -621,6 +650,12 @@ function move_back(add)
 {
   const action=mixer.clipAction(anim.animations[0]);
   action.play();
+  if(player.position.z<=-4800){
+    return;
+  }
+  if(player.position.z>=4750){
+    return;
+  }
   player.position.z-=add;
   camera.position.z-=add/3;
   renderer.render(scene,camera);
@@ -650,6 +685,7 @@ function move_back(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate);
@@ -796,6 +832,7 @@ function animate_squid(time) {
     {
      
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
@@ -940,6 +977,7 @@ function animate_squid2(time) {
     &&min_z<=player.position.z&&player.position.z<=max_z)
     {
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
@@ -1127,6 +1165,7 @@ function animate_squid3(time) {
     {
      
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
