@@ -43,6 +43,7 @@ window.onload=function init() {
       if(key=='ArrowUp' || key=='ArrowDown' || key=='ArrowLeft' || key=='ArrowRight' )
       {
        alert("술래에게 걸림 게임 종료");
+       window.open('about:blank', '_self').close();
       }
     }
    
@@ -542,6 +543,7 @@ function move_left(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate); 
@@ -589,6 +591,7 @@ function move_right(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate);
@@ -680,6 +683,7 @@ function move_back(add)
     {
       console.log("충돌!");
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
 
   requestAnimationFrame(animate);
@@ -826,6 +830,7 @@ function animate_squid(time) {
     {
      
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
@@ -970,6 +975,7 @@ function animate_squid2(time) {
     &&min_z<=player.position.z&&player.position.z<=max_z)
     {
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
@@ -1157,6 +1163,7 @@ function animate_squid3(time) {
     {
      
       alert("장애물에 부딪힘, 게임 종료")
+      window.open('about:blank', '_self').close();
     }
   }
 
