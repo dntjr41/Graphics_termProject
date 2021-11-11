@@ -50,7 +50,7 @@ window.onload=function init() {
   window.addEventListener("keyup", e => { // when keyboard up
     const key = document.getElementById(e.key);
     if (key) console.log(e);
-    const action=mixer.clipAction(anim.animations[0]);
+    const action=mixer.clipAction(player.animations[0]);
     action.reset();
   });
   scene = new THREE.Scene();
@@ -189,33 +189,19 @@ window.onload=function init() {
 
   // 팔다리가 움직이게 할 수 있음 좋겠음
   // player
-  const player_loader=new THREE.GLTFLoader();
-  player_loader.load('./object/squid_game_player/scene.gltf',function(gltf){
-  player=gltf.scene.children[0];
-  console.log(gltf)
-  player.scale.set(200,200,200);
-    player.position.x=0;
-    player.position.y=-1000;
-    
-    player.position.z=-4800;
-    player_loaded=1;
-    scene.add(gltf.scene);
-    //animate();
-  }, undefined,function(error){
-    console.error(error);
-  });
-
+  
   // animation player.
   var animation_loader=new THREE.FBXLoader();
   animation_loader.load('./object/animation_player/anim.fbx',function(object){
-  anim=object;
+  player=object;
   
   console.log(object);
-  object.position.x=200;
+  object.position.x=0;
   object.position.y=-1000
   object.position.z=-4800;
   object.scale.set(2.0,2.0,2.0);
   scene.add( object);
+  player_loaded=1;
   mixer=new THREE.AnimationMixer(object);
   const action=mixer.clipAction(object.animations[0]);
   
@@ -505,11 +491,12 @@ function animate() {
 function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
+ 
+ 
+  const action=mixer.clipAction(player.animations[0]);
+  action.play();
   player.position.x+=add;
  
-  const action=mixer.clipAction(anim.animations[0]);
-  action.play();
-  anim.position.x+=add;
   
 
   camera.position.x+=add/3;
@@ -549,15 +536,15 @@ function move_left(add)
 function move_right(add)
 {
   // player.rotation.z+=add; // change player's direction
-  player.position.x-=add;
-
-  camera.position.x-=add/3;
-  const action=mixer.clipAction(anim.animations[0]);
+ 
+  const action=mixer.clipAction(player.animations[0]);
   action.play();
-  anim.position.x-=add;
+  
+  player.position.x-=add;
+  camera.position.x-=add/3;
   renderer.render(scene,camera);
 
- min1_x=Math.round(mvsquid.position.x)-16;
+  min1_x=Math.round(mvsquid.position.x)-16;
   max1_x=Math.round(mvsquid.position.x)+16;
   min1_z=Math.round(mvsquid.position.z)-16;
   max1_z=Math.round(mvsquid.position.z)+16;
@@ -589,10 +576,10 @@ function move_right(add)
 
 function move(add)
 {
-  player.position.z+=add;
-  const action=mixer.clipAction(anim.animations[0]);
+ 
+  const action=mixer.clipAction(player.animations[0]);
   action.play();
-  anim.position.z+=add;
+  player.position.z+=add;
   
  
  
@@ -631,6 +618,8 @@ function move(add)
 
 function move_back(add)
 {
+  const action=mixer.clipAction(anim.animations[0]);
+  action.play();
   player.position.z-=add;
   camera.position.z-=add/3;
   renderer.render(scene,camera);

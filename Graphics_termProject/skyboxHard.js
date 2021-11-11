@@ -5,7 +5,7 @@ window.onload=function init() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
   let catchtime=0; // when girl turn around
-  
+  let mixer;
 
   let add=100;
   // keyboard function
@@ -48,6 +48,8 @@ window.onload=function init() {
   window.addEventListener("keyup", e => { // when keyboard up
     const key = document.getElementById(e.key);
     if (key) console.log(e);
+    const action=mixer.clipAction(player.animations[0]);
+    action.reset();
   });
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,100,30000);
@@ -185,20 +187,28 @@ window.onload=function init() {
 
   // 팔다리가 움직이게 할 수 있음 좋겠음
   // player
-  const player_loader=new THREE.GLTFLoader();
-  player_loader.load('./object/squid_game_player/scene.gltf',function(gltf){
-  player=gltf.scene.children[0];
-  console.log(gltf)
-  player.scale.set(200,200,200);
-    player.position.x=0;
-    player.position.y=-1000;
-    
-    player.position.z=-4800;
-    player_loaded=1;
-    scene.add(gltf.scene);
-    //animate();
-  }, undefined,function(error){
-    console.error(error);
+  var animation_loader=new THREE.FBXLoader();
+  animation_loader.load('./object/animation_player/anim.fbx',function(object){
+  player=object;
+  console.log(object);
+  object.position.x=0;
+  object.position.y=-1000
+  object.position.z=-4800;
+  object.scale.set(2.0,2.0,2.0);
+  scene.add( object);
+  player_loaded=1;
+  mixer=new THREE.AnimationMixer(object);
+  const action=mixer.clipAction(object.animations[0]);
+  
+  object.traverse( function ( child ) {
+    if ( child.isMesh ) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+
+    }
+
+  });
+  
   });
 
   /////////////////////////////////////////////////////////////////////
@@ -477,12 +487,22 @@ function animate() {
   .then(() => catchtime=0)
   .then(() => renderer.render(scene,camera))
   .then(() => requestAnimationFrame(animate));
+  var delta=0.5;
+  console.log(delta);
+
+				if ( mixer ) {
+
+					mixer.update( delta );
+
+				}
 }
 /////////////////////////////////////////////////////////////////////////////////
 // 장애물 충돌 시 게임 종료 -> squid1, squid2, octopus 좌표 재설정 필요, 장애물 충돌 조건 함수화 필요
 function move_left(add)
 {
   // player.rotation.z-=add; // change player's direction
+  const action=mixer.clipAction(player.animations[0]);
+  action.play();
   player.position.x+=add;
 
   camera.position.x+=add/3;
@@ -522,8 +542,10 @@ function move_left(add)
 function move_right(add)
 {
   // player.rotation.z+=add; // change player's direction
+  const action=mixer.clipAction(player.animations[0]);
+  action.play();
+  
   player.position.x-=add;
-
   camera.position.x-=add/3;
   renderer.render(scene,camera);
 
@@ -559,6 +581,8 @@ function move_right(add)
 
 function move(add)
 {
+  const action=mixer.clipAction(player.animations[0]);
+  action.play();
   player.position.z+=add;
   camera.position.z+=add/3;
   renderer.render(scene,camera);
@@ -595,6 +619,8 @@ function move(add)
 
 function move_back(add)
 {
+  const action=mixer.clipAction(anim.animations[0]);
+  action.play();
   player.position.z-=add;
   camera.position.z-=add/3;
   renderer.render(scene,camera);
