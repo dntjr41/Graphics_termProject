@@ -1,4 +1,4 @@
-let scene, camera, renderer;
+let scene, camera, renderer,geometry;
 let player_loaded=0;
 let win=0;
 
@@ -453,7 +453,7 @@ window.onload=function init() {
   // 무궁화 꽃이 피었습니다. floating 3d text
   let fontLoader=new THREE.FontLoader();
   fontLoader.load("./Do Hyeon_Regular.json",font=>{
-    let geometry=new THREE.TextGeometry(
+    geometry=new THREE.TextGeometry(
       "무궁화꽃이피었습니다.",
       {
         font: font,
@@ -486,8 +486,10 @@ function animate() {
   sleep(3100)
   .then(() => girl.rotation.z=84.75)
   .then(() =>catchtime=1)
+  .then(()=>redlight())
   .then(() => sleep(3100))
   .then(() => girl.rotation.z=0)
+  .then(()=>greenlight())
   .then(() => girl.translate.y=-10)
   .then(() => catchtime=0)
   .then(() => renderer.render(scene,camera))
@@ -500,6 +502,30 @@ function animate() {
 					mixer.update( delta );
 
 				}
+}
+function redlight()
+{
+  
+  let material=new THREE.MeshBasicMaterial({
+    color:0xff0000,
+    wireframe:false
+  });
+  let text_mesh=new THREE.Mesh(geometry,material);
+  text_mesh.position.z=1000;
+  text_mesh.rotation.y=-10050;
+  scene.add(text_mesh);
+}
+function greenlight()
+{
+ 
+  let material=new THREE.MeshBasicMaterial({
+    color:0x00ff00,
+    wireframe:false
+  });
+  let text_mesh=new THREE.Mesh(geometry,material);
+  text_mesh.position.z=1000;
+  text_mesh.rotation.y=-10050;
+  scene.add(text_mesh);
 }
 /////////////////////////////////////////////////////////////////////////////////
 // 장애물 충돌 시 게임 종료 -> squid1, squid2, octopus 좌표 재설정 필요, 장애물 충돌 조건 함수화 필요
