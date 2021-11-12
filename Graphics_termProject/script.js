@@ -14,7 +14,8 @@ function updateCountdown()
     time--;
     if (time < 0) {                  
         clearInterval(tid);  // time ends we can change the number  
-        alert("게임 종료");
+        alert("시간 초과 게임종료!!");
+        window.open('about:blank', '_self').close();
         }       
 }
 
