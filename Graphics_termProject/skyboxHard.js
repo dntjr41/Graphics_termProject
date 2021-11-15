@@ -42,7 +42,7 @@ window.onload=function init() {
     {
       if(key=='ArrowUp' || key=='ArrowDown' || key=='ArrowLeft' || key=='ArrowRight' )
       {
-       alert("술래에게 걸림 게임 종료");
+       alert("술래에게 걸림 게임 종료!");
        window.open('about:blank', '_self').close();
       }
     }
