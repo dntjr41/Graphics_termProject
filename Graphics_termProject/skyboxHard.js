@@ -1,4 +1,4 @@
-/*let scene, camera, renderer,geometry;
+let scene, camera, renderer,geometry;
 let player_loaded=0;
 let win=0;
 
@@ -1196,4 +1196,4 @@ function animate_squid3(time) {
   }
 
   requestAnimationFrame(animate_squid3);
-}*/
+}
