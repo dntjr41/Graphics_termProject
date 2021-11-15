@@ -720,7 +720,7 @@ function move_back(add)
 
   if((min1_x<=player.position.x&&player.position.x<=max1_x&&min1_z<=player.position.z&&player.position.z<=max1_z)||(min2_x<=player.position.x&&player.position.x<=max2_x&&min2_z<=player.position.z&&player.position.z<=max2_z)||(min_sq1_x<=player.position.x&&player.position.x<=max_sq1_x&&min_sq1_z<=player.position.z&&player.position.z<=max_sq1_z)||(min_sq2_x<=player.position.x&&player.position.x<=max_sq2_x&&min_sq2_z<=player.position.z&&player.position.z<=max_sq2_z)||(min_oc_x<=player.position.x&&player.position.x<=max_oc_x&&min_oc_z<=player.position.z&&player.position.z<=max_oc_z))
     {
-      console.log("충돌!");
+      console.log("충돌 !");
       alert("장애물에 부딪힘, 게임 종료");
       window.open('about:blank', '_self').close();
     }
